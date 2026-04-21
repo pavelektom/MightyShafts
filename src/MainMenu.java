@@ -5,8 +5,9 @@ import java.io.IOException;
 
 public class MainMenu {
 
-    private JFrame frame;
+    JFrame frame;
     private Image obrazekPozadi;
+    JButton settings = new CustomButton(" Settings ");
 
 
     public MainMenu() {
@@ -24,10 +25,6 @@ public class MainMenu {
         frame.setForeground(Color.BLACK);
         frame.setBackground(Color.BLACK);
 
-
-
-
-
         try {
             obrazekPozadi = ImageIO.read(getClass().getResource("/pozadi1.jpg"));
         } catch (IOException e) {
@@ -35,7 +32,6 @@ public class MainMenu {
         }
 
         JPanel panel = new JPanel() {
-            @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if (obrazekPozadi != null) {
@@ -52,7 +48,7 @@ public class MainMenu {
         panel.setOpaque(false);
 
 
-        JButton playBtn = new JButton(" Continue ");
+        JButton playBtn = new CustomButton(" Continue ");
         playBtn.setFont(new Font("Arial", Font.BOLD, 50));
         playBtn.setBackground(new Color(22, 204, 75));
         playBtn.setForeground(Color.BLACK);
@@ -65,7 +61,7 @@ public class MainMenu {
             new LoadingScreen().initialize();
         });
 
-        JButton ukoncit = new JButton(" Exit ");
+        JButton ukoncit = new CustomButton(" Exit ");
         ukoncit.setBackground(new Color(179, 9, 15));
         ukoncit.setForeground(Color.BLACK);
         ukoncit.setFont(new Font("Arial", Font.BOLD, 50));
@@ -75,11 +71,9 @@ public class MainMenu {
         ukoncit.setAlignmentX(Component.CENTER_ALIGNMENT);
         ukoncit.addActionListener(e->{
             frame.dispose();
-            System.exit(0);
         });
 
 
-        JButton settings = new JButton(" Settings ");
         settings.setFont(new Font("Arial", Font.BOLD, 50));
         settings.setBackground(new Color(143, 145, 145));
         settings.setForeground(Color.BLACK);
@@ -87,6 +81,10 @@ public class MainMenu {
         settings.setPreferredSize(new Dimension(350, 80));
         settings.setMaximumSize(new Dimension(350, 80));
         settings.setAlignmentX(Component.CENTER_ALIGNMENT);
+        settings.addActionListener(e -> {
+                new Settings().zapnout();
+                settings.setEnabled(false);
+        });
 
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
