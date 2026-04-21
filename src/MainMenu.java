@@ -1,9 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainMenu {
 
     private JFrame frame;
+    private Image obrazekPozadi;
 
 
     public MainMenu() {
@@ -12,7 +15,6 @@ public class MainMenu {
 
     public void zapnout(){
 
-        JPanel panel = new JPanel();
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -21,7 +23,7 @@ public class MainMenu {
         frame.setForeground(Color.BLACK);
         frame.setBackground(Color.BLACK);
 
-        JButton ukoncit = new JButton(" Exit ");   /* Tady mame tlacitko ukoncit, pokud bude stisknuto, hra se vypne. */
+        JButton ukoncit = new JButton(" Exit ");
         ukoncit.setBackground(Color.RED);
         ukoncit.setForeground(Color.BLACK);
         ukoncit.setFont(new Font("Arial", Font.BOLD, 50));
@@ -34,6 +36,30 @@ public class MainMenu {
             frame.dispose();
             System.exit(0);
         });
+
+        try {
+            obrazekPozadi = ImageIO.read(getClass().getResource("/pozadi.jpg"));
+        } catch (IOException e) {
+            System.out.println("Nepodarilo se načíst obrázek");
+        }
+
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (obrazekPozadi != null) {
+                    g.drawImage(obrazekPozadi, 0, 0, getWidth(), getHeight(), this);
+                    g.setColor(new Color(0, 0, 0, 150));
+                    g.fillRect(0, 0, getWidth(), getHeight());
+                } else {
+                    g.setColor(Color.BLACK);
+                    System.out.println("nevidim fotku");
+                }
+            }
+        };
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setOpaque(false);
+
 
         JButton playBtn = new JButton(" Continue ");
         playBtn.setFont(new Font("Arial", Font.BOLD, 50));
