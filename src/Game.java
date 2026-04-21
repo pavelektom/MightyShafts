@@ -9,6 +9,8 @@ public class Game {
     }
     public void turnOn(){
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setSize(1000,1000);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setVisible(true);
