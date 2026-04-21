@@ -24,19 +24,9 @@ public class MainMenu {
         frame.setForeground(Color.BLACK);
         frame.setBackground(Color.BLACK);
 
-        JButton ukoncit = new JButton(" Exit ");
-        ukoncit.setBackground(new Color(179, 9, 15));
-        ukoncit.setForeground(Color.BLACK);
-        ukoncit.setFont(new Font("Arial", Font.BOLD, 50));
-        ukoncit.setFocusPainted(false);
-        ukoncit.setPreferredSize(new Dimension(350, 80));
-        ukoncit.setMaximumSize(new Dimension(350, 80));
-        ukoncit.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        ukoncit.addActionListener(e->{
-            frame.dispose();
-            System.exit(0);
-        });
+
+
 
         try {
             obrazekPozadi = ImageIO.read(getClass().getResource("/pozadi1.jpg"));
@@ -75,6 +65,30 @@ public class MainMenu {
             new LoadingScreen().initialize();
         });
 
+        JButton ukoncit = new JButton(" Exit ");
+        ukoncit.setBackground(new Color(179, 9, 15));
+        ukoncit.setForeground(Color.BLACK);
+        ukoncit.setFont(new Font("Arial", Font.BOLD, 50));
+        ukoncit.setFocusPainted(false);
+        ukoncit.setPreferredSize(new Dimension(350, 80));
+        ukoncit.setMaximumSize(new Dimension(350, 80));
+        ukoncit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ukoncit.addActionListener(e->{
+            frame.dispose();
+            System.exit(0);
+        });
+
+
+        JButton settings = new JButton(" Settings ");
+        settings.setFont(new Font("Arial", Font.BOLD, 50));
+        settings.setBackground(new Color(143, 145, 145));
+        settings.setForeground(Color.BLACK);
+        settings.setFocusPainted(false);
+        settings.setPreferredSize(new Dimension(350, 80));
+        settings.setMaximumSize(new Dimension(350, 80));
+        settings.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Mighty shafts");
@@ -88,6 +102,8 @@ public class MainMenu {
         panel.add(title);
         panel.add(Box.createVerticalStrut(50));
         panel.add(playBtn);
+        panel.add(Box.createVerticalStrut(50));
+        panel.add(settings);
         panel.add(Box.createVerticalStrut(50));
         panel.add(ukoncit);
         frame.add(panel);
