@@ -19,12 +19,13 @@ public class MainMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(800,800);
+        frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setForeground(Color.BLACK);
         frame.setBackground(Color.BLACK);
 
         JButton ukoncit = new JButton(" Exit ");
-        ukoncit.setBackground(Color.RED);
+        ukoncit.setBackground(new Color(179, 9, 15));
         ukoncit.setForeground(Color.BLACK);
         ukoncit.setFont(new Font("Arial", Font.BOLD, 50));
         ukoncit.setFocusPainted(false);
@@ -38,7 +39,7 @@ public class MainMenu {
         });
 
         try {
-            obrazekPozadi = ImageIO.read(getClass().getResource("/pozadi.jpg"));
+            obrazekPozadi = ImageIO.read(getClass().getResource("/pozadi1.jpg"));
         } catch (IOException e) {
             System.out.println("Nepodarilo se načíst obrázek");
         }
@@ -63,7 +64,7 @@ public class MainMenu {
 
         JButton playBtn = new JButton(" Continue ");
         playBtn.setFont(new Font("Arial", Font.BOLD, 50));
-        playBtn.setBackground(new Color(55, 152, 48));
+        playBtn.setBackground(new Color(22, 204, 75));
         playBtn.setForeground(Color.BLACK);
         playBtn.setFocusPainted(false);
         playBtn.setPreferredSize(new Dimension(350, 80));
@@ -77,7 +78,7 @@ public class MainMenu {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Mighty shafts");
-        title.setFont(new Font("Times new roman", Font.BOLD, 80));
+        title.setFont(new Font("Times new roman", Font.BOLD, 100));
         title.setForeground(new Color(255, 215, 0));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
