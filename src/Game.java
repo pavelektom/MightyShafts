@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
 public class Game {
 
     private JFrame frame;
+    private Image pozadi;
 
     public Game(){
         frame = new JFrame();

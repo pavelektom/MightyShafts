@@ -72,6 +72,7 @@ public class MainMenu {
         ukoncit.setAlignmentX(Component.CENTER_ALIGNMENT);
         ukoncit.addActionListener(e->{
             frame.dispose();
+            System.exit(0);
         });
 
 
