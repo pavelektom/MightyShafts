@@ -7,6 +7,7 @@ public class MainMenu {
 
     JFrame frame;
     private Image obrazekPozadi;
+    Settings s = new Settings();
     JButton settings = new CustomButton(" Settings ");
 
 
@@ -36,7 +37,7 @@ public class MainMenu {
                 super.paintComponent(g);
                 if (obrazekPozadi != null) {
                     g.drawImage(obrazekPozadi, 0, 0, getWidth(), getHeight(), this);
-                    g.setColor(new Color(0, 0, 0, 150));
+                    g.setColor(new Color(0, 0, 0,15));
                     g.fillRect(0, 0, getWidth(), getHeight());
                 } else {
                     g.setColor(Color.BLACK);
@@ -50,7 +51,7 @@ public class MainMenu {
 
         JButton playBtn = new CustomButton(" Continue ");
         playBtn.setFont(new Font("Arial", Font.BOLD, 50));
-        playBtn.setBackground(new Color(22, 204, 75));
+        playBtn.setBackground(new Color(22, 204, 75, 220));
         playBtn.setForeground(Color.BLACK);
         playBtn.setFocusPainted(false);
         playBtn.setPreferredSize(new Dimension(350, 80));
@@ -62,7 +63,7 @@ public class MainMenu {
         });
 
         JButton ukoncit = new CustomButton(" Exit ");
-        ukoncit.setBackground(new Color(179, 9, 15));
+        ukoncit.setBackground(new Color(179, 9, 15, 220));
         ukoncit.setForeground(Color.BLACK);
         ukoncit.setFont(new Font("Arial", Font.BOLD, 50));
         ukoncit.setFocusPainted(false);
@@ -75,7 +76,7 @@ public class MainMenu {
 
 
         settings.setFont(new Font("Arial", Font.BOLD, 50));
-        settings.setBackground(new Color(143, 145, 145));
+        settings.setBackground(new Color(143, 145, 145, 220));
         settings.setForeground(Color.BLACK);
         settings.setFocusPainted(false);
         settings.setPreferredSize(new Dimension(350, 80));
@@ -83,7 +84,6 @@ public class MainMenu {
         settings.setAlignmentX(Component.CENTER_ALIGNMENT);
         settings.addActionListener(e -> {
                 new Settings().zapnout();
-                settings.setEnabled(false);
         });
 
 
