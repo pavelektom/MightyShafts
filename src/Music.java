@@ -5,8 +5,9 @@ import java.io.File;
 
 public class Music implements  Runnable {
 
-    private Clip clip;
+    private static Clip clip;
     private String c;
+    private static boolean hraje = false;
 
     public Music(String c) {
         this.c = c;
@@ -25,15 +26,28 @@ public class Music implements  Runnable {
                clip.open(a);
                clip.loop(Clip.LOOP_CONTINUOUSLY);
                clip.start();
+               hraje = true;
            }
        } catch (Exception e) {
            throw new RuntimeException(e);
-       }
+            }
        }
 
-    public void stop(){
-        if (clip != null && clip.isOpen()) {
-            clip.close();
+       public static boolean ahoj(){
+            return clip.isRunning();
+       }
+
+    public static void zapnoutVypnout() {
+        if (clip == null) {
+            return;
+        }
+        if (hraje) {
+            clip.stop();
+            hraje = false;
+        } else {
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            hraje = true;
         }
     }
 
