@@ -1,3 +1,8 @@
+package Hra;
+
+import Grafika.CustomButton;
+import Hudba.Music;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +12,6 @@ public class Settings {
      JFrame frame;
     private Image pozadi;
     private MainMenu mainMenu;
-    private String hudba = Music.ahoj() ? "Music: ON" : "Music: OFF";
 
 
 
@@ -25,7 +29,7 @@ public class Settings {
         hudbicka.setFont(new Font("Arial", Font.BOLD, 30));
         if (Music.ahoj()) {
             hudbicka.setText("Music:  ON");
-            hudbicka.setBackground(new Color(22, 204, 75, 220));
+            hudbicka.setBackground(new Color(22, 204, 75, 150));
         }else {
             hudbicka.setText("Music: OFF");
             hudbicka.setBackground(new Color(253, 41, 45,125));
@@ -39,7 +43,7 @@ public class Settings {
             Music.zapnoutVypnout();
             if (Music.ahoj()) {
                 hudbicka.setText("Music:  ON");
-                hudbicka.setBackground(new Color(22, 204, 75, 220));
+                hudbicka.setBackground(new Color(22, 204, 75, 150));
             }else {
                 hudbicka.setText("Music: OFF");
                 hudbicka.setBackground(new Color(253, 41, 45,125));
@@ -47,7 +51,7 @@ public class Settings {
             }
         });
 
-        JButton zpet = new CustomButton("Go Back");
+        JButton zpet = new CustomButton(" Zpět ");
         zpet.setFont(new Font("Arial", Font.BOLD, 30));
         zpet.setBackground(new Color(253, 41, 45,125));
         zpet.setForeground(Color.BLACK);

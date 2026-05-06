@@ -1,3 +1,5 @@
+package Loading;
+
 import javax.swing.*;
 import java.awt.*;
 

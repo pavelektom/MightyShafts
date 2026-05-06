@@ -1,6 +1,10 @@
+package Loading;
+
 import javax.swing.*;
 import java.util.List;
 import java.util.Random;
+import Hra.Game;
+
 
 public class LoadingWorker extends SwingWorker<Void, int[]> {
 

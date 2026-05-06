@@ -1,3 +1,8 @@
+package Hra;
+
+import Grafika.CustomButton;
+import Loading.LoadingScreen;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +13,7 @@ public class MainMenu {
     JFrame frame;
     private Image obrazekPozadi;
     Settings s = new Settings();
-    JButton settings = new CustomButton(" Settings ");
+    JButton settings = new CustomButton(" Nastavení ");
 
 
     public MainMenu() {
@@ -18,7 +23,10 @@ public class MainMenu {
     public void zapnout(){
 
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); /**
+
+         */
+
         frame.setResizable(false);
         frame.setSize(800,800);
         frame.setUndecorated(true);
@@ -49,7 +57,7 @@ public class MainMenu {
         panel.setOpaque(false);
 
 
-        JButton playBtn = new CustomButton(" Continue ");
+        JButton playBtn = new CustomButton(" Pokračovat ");
         playBtn.setFont(new Font("Arial", Font.BOLD, 50));
         playBtn.setBackground(new Color(22, 204, 75, 220));
         playBtn.setForeground(Color.BLACK);
