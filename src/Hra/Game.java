@@ -24,6 +24,8 @@ public class Game {
 
 
 
+
+
         JButton exit = new JButton("↩");
         exit.setBackground(new Color(140, 20, 24));
         exit.setFont(new Font("Segoe UI emoji", Font.BOLD, 30));
@@ -35,6 +37,8 @@ public class Game {
             frame.dispose();
             new MainMenu().zapnout();
         });
+
+
 
         try {
             obrazekPozadi1 = ImageIO.read(getClass().getResource("/pozadiHry.png"));
@@ -55,17 +59,20 @@ public class Game {
                 }
             }
         };
+        Delnik delnik1 = new Delnik(300, 430);
 
+        frame.add(delnik1);
+        Timer cas = new Timer(15, e ->{
+            delnik1.posun();
+        });
+
+        cas.start();
 
 
         panel1.setLayout(null);
 
         frame.add(panel1);
         panel1.add(exit);
-
-
-
-//        frame.add(panel, BorderLayout.NORTH);
 
         frame.setVisible(true);
     }

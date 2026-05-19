@@ -23,9 +23,8 @@ public class MainMenu {
     public void zapnout(){
 
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); /**
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-         */
 
         frame.setResizable(false);
         frame.setSize(800,800);
