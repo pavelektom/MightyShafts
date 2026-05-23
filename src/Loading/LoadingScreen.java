@@ -14,6 +14,7 @@ public class LoadingScreen {
         frame.setSize(400,100);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel label = new JLabel("Pokrok");
 
