@@ -34,7 +34,7 @@ public class Skladnik extends JLabel {
             }
         } else {
             this.setLocation(x - rychlost, y);
-            if (this.getX() <= 300) {
+            if (this.getX() <= 315) {
                 this.setIcon(hotovej);
                 doprava = true;
             }
