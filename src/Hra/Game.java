@@ -22,10 +22,6 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-
-
-
-
         JButton exit = new JButton("↩");
         exit.setBackground(new Color(140, 20, 24));
         exit.setFont(new Font("Segoe UI emoji", Font.BOLD, 30));
@@ -37,8 +33,6 @@ public class Game {
             frame.dispose();
             new MainMenu().zapnout();
         });
-
-
 
         try {
             obrazekPozadi1 = ImageIO.read(getClass().getResource("/pozadiHry.png"));
@@ -60,14 +54,22 @@ public class Game {
             }
         };
         Delnik delnik1 = new Delnik(300, 430);
+        Delnik delnik2 = new Delnik(300, 580);
+        Vytah vytah = new Vytah(170, 310);
+        Skladnik skladnik = new Skladnik(315, 235);
 
+        frame.add(skladnik);
+        frame.add(vytah);
         frame.add(delnik1);
+        frame.add(delnik2);
         Timer cas = new Timer(15, e ->{
             delnik1.posun();
+            delnik2.posun();
+            vytah.posun();
+            skladnik.posun();
         });
 
         cas.start();
-
 
         panel1.setLayout(null);
 
