@@ -5,22 +5,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import Grafika.CustomButton;
-
 public class Game {
 
     private JFrame frame;
     private Image obrazekPozadi1;
 
+    private static int cash = 0;
+    private JLabel penizeText;
+
     public Game(){
         frame = new JFrame();
+
     }
     public void turnOn(){
+
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
+        penizeText = new JLabel("Cash: " + "$");
+        penizeText.setBounds(1050, 5, 250, 30);
+        penizeText.setFont(new Font("Arial", Font.BOLD, 40));
+        penizeText.setForeground(Color.GREEN);
+
+
 
         JButton exit = new JButton("↩");
         exit.setBackground(new Color(140, 20, 24));
@@ -33,6 +43,7 @@ public class Game {
             frame.dispose();
             new MainMenu().zapnout();
         });
+
 
         try {
             obrazekPozadi1 = ImageIO.read(getClass().getResource("/pozadiHry.png"));
@@ -53,8 +64,12 @@ public class Game {
                 }
             }
         };
-        Delnik delnik1 = new Delnik(300, 430);
+        Delnik delnik1 = new Delnik(300, 433);
         Delnik delnik2 = new Delnik(300, 580);
+        Delnik delnik3 = new Delnik(300, 695);
+        Delnik delnik4 = new Delnik(300, 806);
+        Delnik delnik5 = new Delnik(300, 960);
+
         Vytah vytah = new Vytah(170, 310);
         Skladnik skladnik = new Skladnik(315, 235);
 
@@ -62,17 +77,25 @@ public class Game {
         frame.add(vytah);
         frame.add(delnik1);
         frame.add(delnik2);
-        Timer cas = new Timer(15, e ->{
-            delnik1.posun();
-            delnik2.posun();
-            vytah.posun();
-            skladnik.posun();
-        });
+        frame.add(delnik3);
+        frame.add(delnik4);
+        frame.add(delnik5);
+
+            Timer cas = new Timer(15, e ->{
+                delnik1.posun();
+                delnik2.posun();
+                delnik3.posun();
+                delnik4.posun();
+                delnik5.posun();
+                vytah.posun();
+                skladnik.posun();
+                penizeText.setText("Cash: " + cash + " $");
+            });
 
         cas.start();
 
         panel1.setLayout(null);
-
+        frame.add(penizeText);
         frame.add(panel1);
         panel1.add(exit);
 
