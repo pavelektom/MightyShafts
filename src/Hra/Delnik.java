@@ -68,7 +68,7 @@ public class Delnik extends JLabel {
         }
         else if (aktualniStav == StavDelnika.TEZI) {
             casTezby++;
-            if (casTezby >= 50) {
+            if (casTezby >= 30) {
                 batoh += level*5;
                 casTezby = 0;
             }
