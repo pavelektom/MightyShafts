@@ -113,6 +113,85 @@ public class Game {
         vytah = new Vytah(170, 310, poledelniku);
         Skladnik skladnik = new Skladnik(1160, 235);
 
+        JButton kupPatro2 = new JButton("Odemknout 2. patro (2500 $)");
+        kupPatro2.setBackground(new Color(253, 213, 47));
+        kupPatro2.setBounds(550, 545, 300, 30);
+
+        JPanel zamknuti = new JPanel();
+        zamknuti.setBackground(new Color(255, 0, 0, 150));
+        zamknuti.setBounds(295, 520, 880, 120);
+        delnik2.setVisible(false);
+        kupPatro2.addActionListener(e ->{
+            if (Game.cash >= 2500 && !delnik2.odemceno) {
+                Game.cash -= 2500;
+                delnik2.odemkni();
+                zamknuti.setVisible(false);
+                kupPatro2.setVisible(false);
+            }
+        });
+
+        delnik3.setVisible(false);
+        JPanel zamek3 = new JPanel();
+        zamek3.setBackground(new Color(255, 0, 0, 150));
+        zamek3.setBounds(295, 640, 880, 120);
+
+        JButton kupPatro3 = new JButton("Odemknout 3. patro (10000 $)");
+        kupPatro3.setBackground(new Color(253, 213, 47));
+        kupPatro3.setBounds(550, 660, 300, 30);
+
+        kupPatro3.addActionListener(e -> {
+            if (Game.cash >= 10000 && !delnik3.odemceno && delnik2.odemceno) {
+                Game.cash -= 10000;
+                delnik3.odemkni();
+                zamek3.setVisible(false);
+                kupPatro3.setVisible(false);
+            }
+        });
+
+        delnik4.setVisible(false);
+        JPanel zamek4 = new JPanel();
+        zamek4.setBackground(new Color(255, 0, 0, 150));
+        zamek4.setBounds(295, 760, 880, 120);
+
+        JButton kupPatro4 = new JButton("Odemknout 4. patro (50000 $)");
+        kupPatro4.setBackground(new Color(253, 213, 47));
+        kupPatro4.setBounds(550, 780, 300, 30);
+
+        kupPatro4.addActionListener(e -> {
+            if (Game.cash >= 50000 && !delnik4.odemceno && delnik3.odemceno) {
+                Game.cash -= 50000;
+                delnik4.odemkni();
+                zamek4.setVisible(false);
+                kupPatro4.setVisible(false);
+            }
+        });
+
+        delnik5.setVisible(false);
+        JPanel zamek5 = new JPanel();
+        zamek5.setBackground(new Color(255, 0, 0, 150));
+        zamek5.setBounds(295, 900, 880, 120);
+
+        JButton kupPatro5 = new JButton("Odemknout 5. patro (250000 $)");
+        kupPatro5.setBackground(new Color(253, 213, 47));
+        kupPatro5.setBounds(550, 930, 300, 30);
+
+        kupPatro5.addActionListener(e -> {
+            if (Game.cash >= 250000 && !delnik5.odemceno && delnik4.odemceno) {
+                Game.cash -= 250000;
+                delnik5.odemkni();
+                zamek5.setVisible(false);
+                kupPatro5.setVisible(false);
+            }
+        });
+
+        frame.add(kupPatro2);
+        frame.add(zamknuti);
+        frame.add(kupPatro3);
+        frame.add(zamek3);
+        frame.add(kupPatro4);
+        frame.add(zamek4);
+        frame.add(kupPatro5);
+        frame.add(zamek5);
         frame.add(skladnik);
         frame.add(vytah);
         frame.add(delnik1);
@@ -123,10 +202,19 @@ public class Game {
 
             Timer cas = new Timer(15, e ->{
                 delnik1.posun();
-                delnik2.posun();
-                delnik3.posun();
-                delnik4.posun();
-                delnik5.posun();
+                if (delnik2.odemceno) {
+                    delnik2.posun();
+                }
+                if (delnik3.odemceno) {
+                    delnik3.posun();
+                }
+                if (delnik4.odemceno) {
+                    delnik4.posun();
+                }
+                if (delnik5.odemceno) {
+                    delnik5.posun();
+                }
+
                 vytah.posun();
                 skladnik.posun();
 
