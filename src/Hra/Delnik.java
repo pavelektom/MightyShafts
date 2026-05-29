@@ -10,17 +10,39 @@ public class Delnik extends JLabel {
 
     int vylozenaRuda =0;
     private int casTezby;
-    private int kapacita = 10;
+    private int kapacita;
     private int batoh = 0;
-    private int level = 1;
+    public int level = 1;
     private int rychlost = 3;
 
+    public boolean odemceno = false;
 
-    private boolean doprava = true;
+    public void odemkni() {
+        this.odemceno = true;
+        this.setVisible(true);
+    }
 
-    public Delnik(int poziceX, int poziceY) {
+    public int getCenaLevelUp() {
+        return cenaLevelUp;
+    }
+
+    private int cenaLevelUp;
+    public void levelUp(){
+        if(Game.cash >= cenaLevelUp){
+            level++;
+            rychlost++;
+            kapacita += 10;
+            Game.cash -= cenaLevelUp;
+            cenaLevelUp = cenaLevelUp *2;
+
+        }
+    }
+
+    public Delnik(int poziceX, int poziceY, int cenaLevelUp, int kapacita) {
         this.setBounds(poziceX, poziceY, 50, 50);
         this.setIcon(hotovej);
+        this.cenaLevelUp = cenaLevelUp;
+        this.kapacita = kapacita;
     }
 
     ImageIcon puvodni = new ImageIcon(getClass().getResource("/delnikDoprava.png"));
@@ -47,7 +69,7 @@ public class Delnik extends JLabel {
         else if (aktualniStav == StavDelnika.TEZI) {
             casTezby++;
             if (casTezby >= 50) {
-                batoh += level;
+                batoh += level*5;
                 casTezby = 0;
             }
             if (batoh >= kapacita) {
@@ -70,7 +92,6 @@ public class Delnik extends JLabel {
             aktualniStav = StavDelnika.JDE_TEZIT;
         }
     }
-
 
 
 
