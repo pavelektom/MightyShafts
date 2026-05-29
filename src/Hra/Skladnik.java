@@ -5,11 +5,22 @@ import java.awt.*;
 
 public class Skladnik extends JLabel {
 
+    public int level = 1;
     private int rychlost = 3;
-    private boolean doprava = false;
     private int casCekani = 0;
     private int naklad = 0;
     StavSkladnika aktualniStav = StavSkladnika.CEKA;
+
+    private int cenaLevelUp = 200;
+    public void levelUp(){
+        if(Game.cash >= cenaLevelUp){
+            level++;
+            rychlost++;
+            Game.cash -= cenaLevelUp;
+            cenaLevelUp = cenaLevelUp *2;
+
+        }
+    }
 
 
 
@@ -20,7 +31,7 @@ public class Skladnik extends JLabel {
     
     ImageIcon puvodni = new ImageIcon(getClass().getResource("/skladnikDoprava.png"));
     Image obrazek1 = puvodni.getImage();
-    Image zmensenyObrazek = obrazek1.getScaledInstance(85, 75, Image.SCALE_SMOOTH);
+    Image zmensenyObrazek = obrazek1.getScaledInstance(85, 65, Image.SCALE_SMOOTH);
     ImageIcon hotovej = new ImageIcon(zmensenyObrazek);
 
     ImageIcon puvodni2 = new ImageIcon(getClass().getResource("/skladnikDoleva.png"));
@@ -69,7 +80,7 @@ public class Skladnik extends JLabel {
             casCekani++;
 
             if (casCekani >= 40) {
-                Game.cash += (naklad * 10);
+                Game.cash += (naklad * 5);
                 naklad = 0;
 
                 casCekani = 0;
