@@ -5,22 +5,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Tato třída slouží jako hlavní panel hry, je tu hlavní metoda turnOn, ve které se odehrává celá hra
+ */
+
 public class Game {
 
     private JFrame frame;
     private Image obrazekPozadi1;
 
 
-    static int cash = 0;
+    static int cash = 1500000;
     private JLabel penizeText;
 
     public static Vytah vytah;
 
-    public Game(){
+    public Game() {
         frame = new JFrame();
-
     }
-    public void turnOn(){
+
+    public void turnOn() {
+        /**
+         * Hlavní metoda hry, je tu úplně vše možné, na začátku metody jsou nastavení jen na JFrame
+         * */
 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -28,17 +35,27 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+
+        /**
+         * Text kolik hráč má momentálně peněz
+         * */
         penizeText = new JLabel("Cash: " + "$");
         penizeText.setBounds(1050, 5, 650, 30);
         penizeText.setFont(new Font("Arial", Font.BOLD, 40));
         penizeText.setForeground(Color.GREEN);
 
+        /**
+         * Text kolik je momentálně rudy v truhle u výtahu
+         *  */
         JLabel textTruhly = new JLabel("");
         textTruhly.setBounds(200, 60, 6200, 40);
         textTruhly.setFont(new Font("Arial", Font.BOLD, 35));
         textTruhly.setForeground(Color.ORANGE);
         frame.add(textTruhly);
 
+        /**
+         * text kolik je momentálně rudy v šachtě, každý další JLabel rudaX je úplně stejná jako tato metoda
+         *  */
         JLabel ruda1 = new JLabel("");
         ruda1.setBounds(300, 440, 100, 30);
         ruda1.setFont(new Font("Arial", Font.BOLD, 22));
@@ -70,26 +87,32 @@ public class Game {
         frame.add(ruda5);
 
 
-
+        /**
+         * tlačítko na vrácení se zpět do main menu
+         * */
         JButton exit = new JButton("↩");
         exit.setBackground(new Color(140, 20, 24));
         exit.setFont(new Font("Segoe UI emoji", Font.BOLD, 30));
         exit.setPreferredSize(new Dimension(135, 40));
         exit.setMaximumSize(new Dimension(135, 40));
         exit.setFocusPainted(false);
-        exit.setBounds(1530,5 , 95, 40);
-        exit.addActionListener(e->{
+        exit.setBounds(1530, 5, 95, 40);
+        exit.addActionListener(e -> {
             frame.dispose();
             new MainMenu().zapnout();
         });
 
-
+        /**
+         * Načítání obrázku pozadí do hry
+         * */
         try {
             obrazekPozadi1 = ImageIO.read(getClass().getResource("/pozadiHry.png"));
         } catch (IOException e) {
             System.out.println("Nepodarilo se načíst obrázek");
         }
-
+        /**
+         * Pomocí paintComponent si "Vykreslíme" obrázek do pozadí, pokud to fotku nedokáže vykreslit, nastaví černé pozadí
+         * */
         JPanel panel1 = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -103,27 +126,112 @@ public class Game {
                 }
             }
         };
-        Delnik delnik1 = new Delnik(300, 433);
-        Delnik delnik2 = new Delnik(300, 580);
-        Delnik delnik3 = new Delnik(300, 695);
-        Delnik delnik4 = new Delnik(300, 806);
-        Delnik delnik5 = new Delnik(300, 960);
+        /**
+         * Zde si vytváříme delníky do každé šachty, poté je všechny pridáme do pole
+         * */
+        Delnik delnik1 = new Delnik(300, 433, 200, 10);
+        Delnik delnik2 = new Delnik(300, 580, 500, 20);
+        Delnik delnik3 = new Delnik(300, 695, 1000, 35);
+        Delnik delnik4 = new Delnik(300, 806, 2500, 60);
+        Delnik delnik5 = new Delnik(300, 960, 5000, 100);
         Delnik[] poledelniku = {delnik1, delnik2, delnik3, delnik4, delnik5};
 
+        /**
+         * Tady si vytváříme výtah a skladníka
+         * */
         vytah = new Vytah(170, 310, poledelniku);
         Skladnik skladnik = new Skladnik(1160, 235);
 
+        /**
+         * Tlačítko level up pro dělníky
+         * nastavíme si barvy, pozice
+         * poté pomocí actionlisteneru zavoláme metodu .levelUp(); z tridy Delnik
+         * Změníme text, protože cena se zvětšila
+         * */
+        JButton levelUp1 = new JButton("Level Up : 200$");
+        levelUp1.setBackground(new Color(99, 131, 243));
+        levelUp1.setBounds(1200, 433, 180, 30);
+        levelUp1.addActionListener(e -> {
+            delnik1.levelUp();
+            levelUp1.setText("Level Up : " + delnik1.getCenaLevelUp() + "$");
+
+        });
+        JButton levelUp2 = new JButton("Level Up : 500$");
+        levelUp2.setBackground(new Color(99, 131, 243));
+        levelUp2.setBounds(1200, 590, 180, 30);
+        levelUp2.setVisible(false);
+        levelUp2.addActionListener(e -> {
+            if (delnik2.odemceno) {
+                delnik2.levelUp();
+                levelUp2.setText("Level Up : " + delnik2.getCenaLevelUp() + "$");
+            }
+        });
+        JButton levelUp3 = new JButton("Level Up : 1000$");
+        levelUp3.setBackground(new Color(99, 131, 243));
+        levelUp3.setBounds(1200, 695, 180, 30);
+        levelUp3.setVisible(false);
+        levelUp3.addActionListener(e -> {
+            if (delnik3.odemceno) {
+                delnik3.levelUp();
+                levelUp3.setText("Level Up : " + delnik3.getCenaLevelUp() + "$");
+            }
+        });
+        JButton levelUp4 = new JButton("Level Up : 2500$");
+        levelUp4.setBackground(new Color(99, 131, 243));
+        levelUp4.setBounds(1200, 806, 180, 30);
+        levelUp4.setVisible(false);
+        levelUp4.addActionListener(e -> {
+            if (delnik4.odemceno) {
+                delnik4.levelUp();
+                levelUp4.setText("Level Up : " + delnik4.getCenaLevelUp() + "$");
+            }
+        });
+        JButton levelUp5 = new JButton("Level Up : 5000$");
+        levelUp5.setBackground(new Color(99, 131, 243));
+        levelUp5.setBounds(1200, 950, 180, 30);
+        levelUp5.setVisible(false);
+        levelUp5.addActionListener(e -> {
+            if (delnik5.odemceno) {
+                delnik5.levelUp();
+                levelUp5.setText("Level Up : " + delnik5.getCenaLevelUp() + "$");
+            }
+        });
+        /**
+         * Level up pro skladníka, funguje stejně jako level up pro všechny delníky, jen má trošku jiné maličkosti v metodě .levelUp();
+         * */
+        JButton levelUpSkladnik = new JButton("Level Up : 500$");
+        levelUpSkladnik.setBackground(new Color(99, 131, 243));
+        levelUpSkladnik.setBounds(1400, 265, 160, 30);
+        levelUpSkladnik.addActionListener(e -> {
+            skladnik.levelUp();
+            levelUpSkladnik.setText("Level up : " + skladnik.getCenaLevelUp() + "$");
+        });
+        /**
+         * Level up pro výtah, stejné jako pro delníky, jen jiné specifikace v metodě .levelUp();
+         * */
+        JButton levelUpVytah = new JButton("Level Up : 500$");
+        levelUpVytah.setBackground(new Color(99, 131, 243));
+        levelUpVytah.setBounds(5, 265, 160, 30);
+        levelUpVytah.addActionListener(e -> {
+            vytah.levelUp();
+            levelUpVytah.setText("Level up : " + vytah.getCenaLevelUp() + "$");
+        });
+
+        /**
+         * Odemknutí pater
+         * Vždy uděláme
+         * */
         JButton kupPatro2 = new JButton("Odemknout 2. patro (2500 $)");
         kupPatro2.setBackground(new Color(253, 213, 47));
         kupPatro2.setBounds(550, 545, 300, 30);
-
         JPanel zamknuti = new JPanel();
         zamknuti.setBackground(new Color(255, 0, 0, 150));
         zamknuti.setBounds(295, 520, 880, 120);
         delnik2.setVisible(false);
-        kupPatro2.addActionListener(e ->{
+        kupPatro2.addActionListener(e -> {
             if (Game.cash >= 2500 && !delnik2.odemceno) {
                 Game.cash -= 2500;
+                levelUp2.setVisible(true);
                 delnik2.odemkni();
                 zamknuti.setVisible(false);
                 kupPatro2.setVisible(false);
@@ -142,6 +250,7 @@ public class Game {
         kupPatro3.addActionListener(e -> {
             if (Game.cash >= 10000 && !delnik3.odemceno && delnik2.odemceno) {
                 Game.cash -= 10000;
+                levelUp3.setVisible(true);
                 delnik3.odemkni();
                 zamek3.setVisible(false);
                 kupPatro3.setVisible(false);
@@ -160,6 +269,7 @@ public class Game {
         kupPatro4.addActionListener(e -> {
             if (Game.cash >= 50000 && !delnik4.odemceno && delnik3.odemceno) {
                 Game.cash -= 50000;
+                levelUp4.setVisible(true);
                 delnik4.odemkni();
                 zamek4.setVisible(false);
                 kupPatro4.setVisible(false);
@@ -178,12 +288,20 @@ public class Game {
         kupPatro5.addActionListener(e -> {
             if (Game.cash >= 250000 && !delnik5.odemceno && delnik4.odemceno) {
                 Game.cash -= 250000;
+                levelUp5.setVisible(true);
                 delnik5.odemkni();
                 zamek5.setVisible(false);
                 kupPatro5.setVisible(false);
             }
         });
 
+        frame.add(levelUpSkladnik);
+        frame.add(levelUpVytah);
+        frame.add(levelUp5);
+        frame.add(levelUp4);
+        frame.add(levelUp3);
+        frame.add(levelUp2);
+        frame.add(levelUp1);
         frame.add(kupPatro2);
         frame.add(zamknuti);
         frame.add(kupPatro3);
@@ -200,57 +318,57 @@ public class Game {
         frame.add(delnik4);
         frame.add(delnik5);
 
-            Timer cas = new Timer(15, e ->{
-                delnik1.posun();
-                if (delnik2.odemceno) {
-                    delnik2.posun();
-                }
-                if (delnik3.odemceno) {
-                    delnik3.posun();
-                }
-                if (delnik4.odemceno) {
-                    delnik4.posun();
-                }
-                if (delnik5.odemceno) {
-                    delnik5.posun();
-                }
+        Timer cas = new Timer(15, e -> {
+            delnik1.posun();
+            if (delnik2.odemceno) {
+                delnik2.posun();
+            }
+            if (delnik3.odemceno) {
+                delnik3.posun();
+            }
+            if (delnik4.odemceno) {
+                delnik4.posun();
+            }
+            if (delnik5.odemceno) {
+                delnik5.posun();
+            }
 
-                vytah.posun();
-                skladnik.posun();
+            vytah.posun();
+            skladnik.posun();
 
-                penizeText.setText("Peníze: " + cash + " $ ");
+            penizeText.setText("Peníze: " + cash + " $ ");
 
-                if (Vytah.truhlaNahore > 0) {
-                    textTruhly.setText(String.valueOf(Vytah.truhlaNahore));
-                } else {
-                    textTruhly.setText("");
-                }
-                if (delnik1.vylozenaRuda > 0) {
-                    ruda1.setText(String.valueOf(delnik1.vylozenaRuda));
-                } else {
-                    ruda1.setText("");
-                }
-                if (delnik2.vylozenaRuda > 0) {
-                    ruda2.setText(String.valueOf(delnik2.vylozenaRuda));
-                } else {
-                    ruda2.setText("");
-                }
-                if (delnik3.vylozenaRuda > 0) {
-                    ruda3.setText(String.valueOf(delnik3.vylozenaRuda));
-                } else {
-                    ruda3.setText("");
-                }
-                if (delnik4.vylozenaRuda > 0) {
-                    ruda4.setText(String.valueOf(delnik4.vylozenaRuda));
-                } else {
-                    ruda4.setText("");
-                }
-                if (delnik5.vylozenaRuda > 0) {
-                    ruda5.setText(String.valueOf(delnik5.vylozenaRuda));
-                } else {
-                    ruda5.setText("");
-                }
-            });
+            if (Vytah.truhlaNahore > 0) {
+                textTruhly.setText(String.valueOf(Vytah.truhlaNahore));
+            } else {
+                textTruhly.setText("");
+            }
+            if (delnik1.vylozenaRuda > 0) {
+                ruda1.setText(String.valueOf(delnik1.vylozenaRuda));
+            } else {
+                ruda1.setText("");
+            }
+            if (delnik2.vylozenaRuda > 0) {
+                ruda2.setText(String.valueOf(delnik2.vylozenaRuda));
+            } else {
+                ruda2.setText("");
+            }
+            if (delnik3.vylozenaRuda > 0) {
+                ruda3.setText(String.valueOf(delnik3.vylozenaRuda));
+            } else {
+                ruda3.setText("");
+            }
+            if (delnik4.vylozenaRuda > 0) {
+                ruda4.setText(String.valueOf(delnik4.vylozenaRuda));
+            } else {
+                ruda4.setText("");
+            }
+            if (delnik5.vylozenaRuda > 0) {
+                ruda5.setText(String.valueOf(delnik5.vylozenaRuda));
+            } else {
+                ruda5.setText("");
+            }
+        });
 
         cas.start();
 
