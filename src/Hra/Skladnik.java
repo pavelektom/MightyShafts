@@ -8,21 +8,24 @@ public class Skladnik extends JLabel {
     public int level = 1;
     private int rychlost = 3;
     private int casCekani = 0;
+    private int kapacita = 50;
     private int naklad = 0;
     StavSkladnika aktualniStav = StavSkladnika.CEKA;
 
-    private int cenaLevelUp = 200;
+    private int cenaLevelUp = 500;
     public void levelUp(){
         if(Game.cash >= cenaLevelUp){
             level++;
             rychlost++;
+            kapacita = kapacita *2;
             Game.cash -= cenaLevelUp;
             cenaLevelUp = cenaLevelUp *2;
-
         }
     }
 
-
+    public int getCenaLevelUp() {
+        return cenaLevelUp;
+    }
 
     public Skladnik(int poziceX, int poziceY) {
         this.setBounds(poziceX, poziceY, 75, 75);
