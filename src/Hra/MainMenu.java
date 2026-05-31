@@ -8,12 +8,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Třída MainMenu představuje hlavní úvodní obrazovku hry
+ */
 public class MainMenu {
 
+    /**
+     * Základní proměnné pro hlavní menu
+     */
     JFrame frame;
     private Image obrazekPozadi;
-    Settings s = new Settings();
-    JButton settings = new CustomButton(" Nastavení ");
+
 
 
     public MainMenu() {
@@ -21,11 +26,11 @@ public class MainMenu {
     }
 
     public void zapnout(){
-
+        /**
+         * Základní nastavení Jframu
+         * */
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
         frame.setResizable(false);
         frame.setSize(800,800);
         frame.setUndecorated(true);
@@ -33,6 +38,9 @@ public class MainMenu {
         frame.setForeground(Color.BLACK);
         frame.setBackground(Color.BLACK);
 
+        /**
+         * udělání pozadí hezkého
+         * */
         try {
             obrazekPozadi = ImageIO.read(getClass().getResource("/pozadi1.jpg"));
         } catch (IOException e) {
@@ -55,7 +63,9 @@ public class MainMenu {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
 
-
+        /**
+         * Tlačítko pro zapnutí hry, po kliknutí to uživatele přesune na loading a poté do hry
+         * */
         JButton playBtn = new CustomButton(" Pokračovat ");
         playBtn.setFont(new Font("Arial", Font.BOLD, 50));
         playBtn.setBackground(new Color(22, 204, 75, 220));
@@ -69,6 +79,9 @@ public class MainMenu {
             new LoadingScreen().initialize();
         });
 
+        /**
+         * Tlačítko ukončit nám kompletně vypne hru
+         * */
         JButton ukoncit = new CustomButton(" Exit ");
         ukoncit.setBackground(new Color(179, 9, 15, 220));
         ukoncit.setForeground(Color.BLACK);
@@ -83,6 +96,10 @@ public class MainMenu {
         });
 
 
+        /**
+         * Tlačítko settings nám otevře nastavení
+         * */
+        JButton settings = new CustomButton(" Nastavení ");
         settings.setFont(new Font("Arial", Font.BOLD, 50));
         settings.setBackground(new Color(143, 145, 145, 220));
         settings.setForeground(Color.BLACK);
@@ -97,6 +114,9 @@ public class MainMenu {
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        /**
+         * title je nadpis hry v úvodním menu
+         * */
         JLabel title = new JLabel("Mighty shafts");
         title.setFont(new Font("Times new roman", Font.BOLD, 100));
         title.setForeground(new Color(255, 215, 0));
@@ -104,6 +124,9 @@ public class MainMenu {
 
         panel.setBackground(new Color(62, 23, 23, 163));
 
+        /**
+         * Tady vše přidáváme na panel/frane
+         * */
         panel.add(Box.createVerticalStrut(300));
         panel.add(title);
         panel.add(Box.createVerticalStrut(50));
