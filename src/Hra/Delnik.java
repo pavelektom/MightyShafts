@@ -141,7 +141,7 @@ public class Delnik extends JLabel {
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setColor(Color.BLACK);
             g2.fillRect(5, 0, 40, 6);
-            double procento = casTezby / 100.0;
+            double procento = casTezby / 30.0;
             if (procento > 1.0) {
                 procento = 1.0;
             }
