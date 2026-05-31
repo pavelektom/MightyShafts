@@ -14,12 +14,6 @@ Spravujete svůj vlastní těžební důl, najímáte dělníky a zajišťujete 
 * **Odemykání pater:** Začínáte pouze s jednou aktivní šachtou a jedním dělníkem, ale za vydělané peníze si můžete postupně koupit přístup až do 5 hlubokých .
 * **Ukládání postupu:** Hra obsahuje plně funkční Save/Load systém. Svůj postup, peníze a statistiky všech postav si můžete uložit a později se ke své rozehrané firmě vrátit.
 
-**✅ Jak hru spustit**
-
-1. Stáhněte si soubor `MIGHTYSHAFTS.jar`.
-2. Hru zapnete dvojklikem na soubor `MIGHTYSHAFTS.jar`.
-3. Nebo pomocí příkazu přes příkazovou řádku: `java -jar .\MIGHTYSHAFTS.jar`.
-
 **📚 Použité knihovny a technologie**
 
 * **Java** - Programovací jazyk, ve kterém je hra napsána.
