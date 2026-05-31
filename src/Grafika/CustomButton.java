@@ -2,7 +2,9 @@ package Grafika;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Třída CustomButton je k vytvoření hezčích tlačítek se zakulacenými rohy
+ */
 public class CustomButton extends JButton {
 
 
@@ -16,6 +18,10 @@ public class CustomButton extends JButton {
 
     }
 
+    /**
+     * Metoda paintcomponent je ta hlava toho krásného tlačítka
+     * Zapne vyhlazování hran (Antialiasing), aby zakulacené rohy nebyly "kostičkované".
+     */
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
