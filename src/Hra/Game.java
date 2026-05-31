@@ -1,5 +1,7 @@
 package Hra;
 
+import Grafika.CustomButton;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +15,11 @@ public class Game {
 
     private JFrame frame;
     private Image obrazekPozadi1;
+    /** obrázek pro pozadí */
 
-
-    static int cash = 1500000;
+    /** cash jsou peníze, které hráč má a vidí je ve hře
+     *  */
+    static int cash = 999999999;
     private JLabel penizeText;
 
     public static Vytah vytah;
@@ -104,6 +108,7 @@ public class Game {
 
         /**
          * Načítání obrázku pozadí do hry
+         * Toto jsem udělal pomocí youtube
          * */
         try {
             obrazekPozadi1 = ImageIO.read(getClass().getResource("/pozadiHry.png"));
@@ -219,7 +224,8 @@ public class Game {
 
         /**
          * Odemknutí pater
-         * Vždy uděláme
+         * Vždy uděláme tlačítko a takový plášť přes ty šachty, udělal jsem pro každou třídu samostatné
+         * Po koupení patra zmizí plášť i tlačítko, objeví se dělník a tlačítko pro level up
          * */
         JButton kupPatro2 = new JButton("Odemknout 2. patro (2500 $)");
         kupPatro2.setBackground(new Color(253, 213, 47));
@@ -295,6 +301,9 @@ public class Game {
             }
         });
 
+        /**
+         * Tady přidáváme všechno do framu
+         * */
         frame.add(levelUpSkladnik);
         frame.add(levelUpVytah);
         frame.add(levelUp5);
@@ -318,9 +327,15 @@ public class Game {
         frame.add(delnik4);
         frame.add(delnik5);
 
+
+        /**
+         * Hlavní část hry Timer
+         * pomocí timeru mi ve hře můžou běhat dělníci
+         * Ze začátku běhá jen první, protože jiní jsou zamknutí
+         * */
         Timer cas = new Timer(15, e -> {
             delnik1.posun();
-            if (delnik2.odemceno) {
+            if (delnik2.odemceno) { /** Tady můžeme vidět jak jsou zamčení, pokud hráč koupí šachtu, přidá se nám tam dělník a rovnou se začne posouvat */
                 delnik2.posun();
             }
             if (delnik3.odemceno) {
@@ -332,12 +347,20 @@ public class Game {
             if (delnik5.odemceno) {
                 delnik5.posun();
             }
-
+            /**
+             * Stejně uděláme posun pro výtah a skladníka
+             * */
             vytah.posun();
             skladnik.posun();
 
+            /**
+             * Nastavím peníze
+             * */
             penizeText.setText("Peníze: " + cash + " $ ");
 
+            /**
+             * Tady zas máme vizuál, abychom viděli kdo má kde kolik momentálně rudy
+             * */
             if (Vytah.truhlaNahore > 0) {
                 textTruhly.setText(String.valueOf(Vytah.truhlaNahore));
             } else {
@@ -369,14 +392,157 @@ public class Game {
                 ruda5.setText("");
             }
         });
+        /**
+         *  TADY MÁME TLAČÍTKA ULOŽIT A NAČÍST
+         *  na začátku si jen uděláme normální jbutton a umístíme na mapu
+         *  */
+        JButton tlacitkoUlozit = new JButton("Uložit");
+        tlacitkoUlozit.setBackground(new Color(100, 200, 100));
+        tlacitkoUlozit.setFont(new Font("Arial", Font.BOLD, 15));
+        tlacitkoUlozit.setBounds(10, 5, 100, 35);
+        tlacitkoUlozit.setFocusPainted(false);
 
+        tlacitkoUlozit.addActionListener(e -> {
+            try {
+                java.io.PrintWriter zapisovac = new java.io.PrintWriter("save.txt");
+
+                /**
+                 *  Uložíme peníze
+                 *  */
+                zapisovac.println(Game.cash);
+
+                /**
+                 * Uložíme , která patra jsou odemčená
+                 * */
+                zapisovac.println(delnik2.odemceno);
+                zapisovac.println(delnik3.odemceno);
+                zapisovac.println(delnik4.odemceno);
+                zapisovac.println(delnik5.odemceno);
+
+                /**
+                 *  Uložíme staty všech 5 dělníků
+                 *  */
+                Delnik[] vsichni = {delnik1, delnik2, delnik3, delnik4, delnik5};
+                for (int i = 0; i < vsichni.length; i++) {
+                    zapisovac.println(vsichni[i].level);
+                    zapisovac.println(vsichni[i].kapacita);
+                    zapisovac.println(vsichni[i].rychlost);
+                    zapisovac.println(vsichni[i].cenaLevelUp);
+                }
+                /**
+                 * Uložíme staty výtahu */
+                zapisovac.println(vytah.level);
+                zapisovac.println(vytah.kapacita);
+                zapisovac.println(vytah.rychlost);
+                zapisovac.println(vytah.cenaLevelUp);
+                /** Uložíme staty skladníka
+                 *  */
+                zapisovac.println(skladnik.level);
+                zapisovac.println(skladnik.kapacita);
+                zapisovac.println(skladnik.rychlost);
+                zapisovac.println(skladnik.cenaLevelUp);
+
+                zapisovac.close();
+                JOptionPane.showMessageDialog(frame, "Hra byla úspěšně uložena!");
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Chyba při ukládání hry!");
+            }
+        });
+
+        JButton tlacitkoNacist = new JButton("Načíst");
+        tlacitkoNacist.setBackground(new Color(100, 150, 255));
+        tlacitkoNacist.setFont(new Font("Arial", Font.BOLD, 15));
+        tlacitkoNacist.setBounds(120, 5, 100, 35);
+        tlacitkoNacist.setFocusPainted(false);
+
+        tlacitkoNacist.addActionListener(e -> {
+            try {
+                java.util.Scanner ctenar = new java.util.Scanner(new java.io.File("save.txt"));
+                /**
+                 *  Načteme peníze
+                 *  */
+                Game.cash = ctenar.nextInt();
+                /** Načteme informace o patrech do proměnných
+                 * */
+                boolean p2 = ctenar.nextBoolean();
+                boolean p3 = ctenar.nextBoolean();
+                boolean p4 = ctenar.nextBoolean();
+                boolean p5 = ctenar.nextBoolean();
+
+                if (p2) {
+                    delnik2.odemkni();
+                    zamknuti.setVisible(false);
+                    kupPatro2.setVisible(false);
+                    levelUp2.setVisible(true);
+                }
+                if (p3) {
+                    delnik3.odemkni();
+                    zamek3.setVisible(false);
+                    kupPatro3.setVisible(false);
+                    levelUp3.setVisible(true);
+                }
+                if (p4) {
+                    delnik4.odemkni();
+                    zamek4.setVisible(false);
+                    kupPatro4.setVisible(false);
+                    levelUp4.setVisible(true);
+                }
+                if (p5) {
+                    delnik5.odemkni();
+                    zamek5.setVisible(false);
+                    kupPatro5.setVisible(false);
+                    levelUp5.setVisible(true);
+                }
+
+                /** Načteme udaje 5 dělníků a přepíšu ceny na tlačítkách
+                 *  */
+                Delnik[] vsichni = {delnik1, delnik2, delnik3, delnik4, delnik5};
+                JButton[] tlacitkaLevelu = {levelUp1, levelUp2, levelUp3, levelUp4, levelUp5};
+
+                for (int i = 0; i < vsichni.length; i++) {
+                    vsichni[i].level = ctenar.nextInt();
+                    vsichni[i].kapacita = ctenar.nextInt();
+                    vsichni[i].rychlost = ctenar.nextInt();
+                    vsichni[i].cenaLevelUp = ctenar.nextInt();
+                    tlacitkaLevelu[i].setText("Level Up : " + vsichni[i].cenaLevelUp + "$");
+                }
+
+                /**
+                 * Načteme výtah a zaktualizujem jeho tlačítko level up
+                 *  */
+                vytah.level = ctenar.nextInt();
+                vytah.kapacita = ctenar.nextInt();
+                vytah.rychlost = ctenar.nextInt();
+                vytah.cenaLevelUp = ctenar.nextInt();
+                levelUpVytah.setText("Level up : " + vytah.cenaLevelUp + "$");
+
+                /**
+                 * Načteme skladníka a zaktualizujem jeho tlačítko  level up
+                 * */
+                skladnik.level = ctenar.nextInt();
+                skladnik.kapacita = ctenar.nextInt();
+                skladnik.rychlost = ctenar.nextInt();
+                skladnik.cenaLevelUp = ctenar.nextInt();
+                levelUpSkladnik.setText("Level up : " + skladnik.cenaLevelUp + "$");
+                ctenar.close();
+                JOptionPane.showMessageDialog(frame, "Hra byla úspěšně načtena");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Soubor save.txt nebyl nalezen");
+            }
+        });
+
+        frame.add(tlacitkoNacist);
+        frame.add(tlacitkoUlozit);
+        /** Zapneme timer */
         cas.start();
 
+        /** vypneme layout pro panel abychom se mohli koordinovat podle pixelů */
         panel1.setLayout(null);
         frame.add(penizeText);
         frame.add(panel1);
         panel1.add(exit);
-
+        /** dame viditelny frame aby po zapnutí hry z mainmenu se zobrazil frame */
         frame.setVisible(true);
     }
 }
