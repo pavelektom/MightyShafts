@@ -17,13 +17,13 @@ public class Skladnik extends JLabel {
      * rychlost je kolik pixelů se posune za jeden "timer" neboli 15 ms
      * */
     public int level = 1;
-    private int rychlost = 3;
+    public int rychlost = 3;
     private int casCekani = 0;
-    private int kapacita = 50;
+    public int kapacita = 50;
     private int naklad = 0;
     StavSkladnika aktualniStav = StavSkladnika.CEKA;
 
-    private int cenaLevelUp = 500;
+    public int cenaLevelUp = 500;
     /**
      * metodu levelUp pouzivame na zvyseni úrovně skladníka
      * zvýšíme level, kapacitu, rychlost
@@ -33,7 +33,7 @@ public class Skladnik extends JLabel {
         if(Game.cash >= cenaLevelUp){
             level++;
             rychlost++;
-            kapacita = kapacita *2;
+            kapacita += kapacita/2;
             Game.cash -= cenaLevelUp;
             cenaLevelUp = cenaLevelUp *2;
         }
@@ -118,7 +118,7 @@ public class Skladnik extends JLabel {
             casCekani++;
 
             if (casCekani >= 40) {
-                Game.cash += (naklad * 5);
+                Game.cash += (naklad * 10);
                 naklad = 0;
 
                 casCekani = 0;
