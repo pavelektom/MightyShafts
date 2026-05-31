@@ -14,7 +14,9 @@ public class Settings {
     private MainMenu mainMenu;
 
 
-
+    /**
+     * Třída Settings představuje obrazovku nastavení hry
+     */
     public Settings() {
         frame = new  JFrame(" Settings ");
     }
@@ -25,6 +27,9 @@ public class Settings {
         frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        /**
+         * Tlačítko hudbicka je určeno pro hudbu, pomocí toho může hráč zapnout a nebo vypnout hudbu ve hře
+         */
         JButton hudbicka = new CustomButton("");
         hudbicka.setFont(new Font("Arial", Font.BOLD, 30));
         if (Music.ahoj()) {
@@ -39,6 +44,9 @@ public class Settings {
         hudbicka.setPreferredSize(new Dimension(250, 60));
         hudbicka.setMaximumSize(new Dimension(250, 60));
         hudbicka.setAlignmentX(Component.CENTER_ALIGNMENT);
+        /**
+         * pomocí actionlisteneru tlačítko mění vzhled po kliknutí a podle toho zdali hraje hudba nebo ne
+         */
         hudbicka.addActionListener(e -> {
             Music.zapnoutVypnout();
             if (Music.ahoj()) {
@@ -51,6 +59,9 @@ public class Settings {
             }
         });
 
+        /**
+         * Tlačítko zpět je určeno pro vrácení se zpět do mainmenu
+         */
         JButton zpet = new CustomButton(" Zpět ");
         zpet.setFont(new Font("Arial", Font.BOLD, 30));
         zpet.setBackground(new Color(253, 41, 45,125));
@@ -66,6 +77,9 @@ public class Settings {
         });
 
 
+        /**
+         * Tady máme zase vykreslení obrázku na pozadí
+         */
         JPanel panel = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -81,13 +95,18 @@ public class Settings {
         };
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
-
+        /**
+         * Pokud se nenačte obrázek dáme černé pozadí
+         */
         try {
             pozadi = ImageIO.read(getClass().getResource("/nastaveni_fixed.jpg"));
         } catch (IOException e) {
             System.out.println("Nepodarilo se načíst obrázek");
         }
 
+        /**
+         * přídávání na panel aby tam něco bylo
+         */
         panel.add(Box.createVerticalStrut(615));
         panel.add(hudbicka);
         panel.add(Box.createVerticalStrut(30));
