@@ -5,7 +5,7 @@ Autor: **Tom Pavelek**
 
 **✒️ Popis hry**
 
-Je to hra v Javě, kde spravujete svůj vlastní těžební důl, najímáte dělníky a zajišťujete plynulý chod logistiky. Za vytěženou a prodanou rudu získáváte peníze. Cílem je vylepšovat svůj tým (dělníky, výtah i skladníka), odemykat hlubší důlní patra a vybudovat to nejvýdělečnější těžební impérium pod zemí.
+Spravujete svůj vlastní těžební důl, najímáte dělníky a zajišťujete plynulý chod logistiky. Za vytěženou a prodanou rudu získáváte peníze. Cílem je vylepšovat svůj tým (dělníky, výtah i skladníka), odemykat hlubší důlní patra a vybudovat to nejvýdělečnější těžební impérium pod zemí.
 
 **🎮 Herní mechaniky**
 
