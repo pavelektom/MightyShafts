@@ -3,7 +3,9 @@ package Hra;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ *  Tato třída působí pro naše dělníky, velmi důležitá třída
+ *  */
 public class Delnik extends JLabel {
     /**
      * Tady si vytvořím všechny nutné proměnné
