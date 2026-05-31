@@ -131,6 +131,7 @@ public class Delnik extends JLabel {
     /**
      * Metoda paintComponent vykresluje progress bar
      * Kreslí se jen ve chvíli, kdy dělník zrovna těží, a ukazuje stav naplnění batohu
+     * Tuto metodu jsem dělal s pomocí od AI
      * */
     @Override
     protected void paintComponent(Graphics g) {
