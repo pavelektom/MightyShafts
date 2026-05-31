@@ -19,7 +19,7 @@ public class Game {
 
     /** cash jsou peníze, které hráč má a vidí je ve hře
      *  */
-    static int cash = 999999999;
+    static int cash = 0;
     private JLabel penizeText;
 
     public static Vytah vytah;
